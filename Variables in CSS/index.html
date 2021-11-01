@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Variables in CSS</title>
+    <style>
+         :root {
+            --dark: black;
+            --light: white;
+        }
+        
+        body {
+            background-color: var(--light);
+            margin: 20px;
+        }
+        
+        #title,
+        #message {
+            color: var(--dark);
+        }
+        
+        #checkDark {
+            display: block;
+        }
+        
+        #checkLight {
+            display: none;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <h1 id="title">Title</h1>
+    <p id="message">Hello everyone! We are going to be using variables in order to color!</p>
+
+    <button onclick="checkedDark()" id="checkDark">Dark Mode</button>
+    <button onclick="checkedLight()" id="checkLight">Light Mode</button>
+
+    <script>
+        function checkedDark() {
+            var style = getComputedStyle(document.body);
+
+            document.getElementById("body").style.backgroundColor = style.getPropertyValue("--dark");
+            document.getElementById("title").style.color = style.getPropertyValue("--light");
+            document.getElementById("message").style.color = style.getPropertyValue("--light");
+
+            document.getElementById("checkDark").style.display = "none";
+            document.getElementById("checkLight").style.display = "block";
+        }
+
+        function checkedLight() {
+            var style = getComputedStyle(document.body);
+
+            document.getElementById("body").style.backgroundColor = style.getPropertyValue("--light");
+            document.getElementById("title").style.color = style.getPropertyValue("--dark");
+            document.getElementById("message").style.color = style.getPropertyValue("--dark");
+
+            document.getElementById("checkDark").style.display = "block";
+            document.getElementById("checkLight").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

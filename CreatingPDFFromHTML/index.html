@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating PDF from HTML</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js" ></script>
+</head>
+<body>
+    <div id="whatToPrint" style="width: 500px;">
+        <p>Hi</p>
+        <p>Printing this :)</p>
+        <h1>This should show up in my pdf</h1>
+
+        <!--<img src="https://th.bing.com/th/id/OIP.wdkLi0wAUuLf5gdNFincPwHaEd?pid=ImgDet&rs=1"/>-->
+
+        <a href="javascript:generatePDF()" id="downloadButton">Click to download</a>
+    </div>
+
+    <script>
+        async function generatePDF() {
+            document.getElementById("downloadButton").innerHTML = "Currently downloading, please wait";
+
+            //Downloading
+            var downloading = document.getElementById("whatToPrint");
+            var doc = new jsPDF('l', 'pt');
+
+            await html2canvas(downloading, {
+                //allowTaint: true,
+                //useCORS: true,
+                width: 530
+            }).then((canvas) => {
+                //Canvas (convert to PNG)
+                doc.addImage(canvas.toDataURL("image/png"), 'PNG', 5, 5, 500, 200);
+            })
+
+            doc.save("Document.pdf");
+
+            //End of downloading
+
+            document.getElementById("downloadButton").innerHTML = "Click to download";
+        }
+    </script>
+</body>
+</html>
+
+<!--
+
+HTML + CSS -> PNG (html2canvas)
+PNG -> Add to PDF (jsPDF)
+Download PDF (jsPDF)
+
+-->
