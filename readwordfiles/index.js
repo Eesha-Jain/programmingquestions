@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/fileupload', upload.single('inputdoc') , async function (req, res, next) {
-   var result = await mammoth.extractRawText({path: req.file.path});
+   var result = await mammoth.convertToHtml({path: req.file.path}); //extractRawText will only read the text within the file
    var text = result.value;
 
    return res.send(text);
