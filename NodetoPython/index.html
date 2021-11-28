@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Word Files</title>
+</head>
+<body style="padding: 50px;">
+    <form id="form">
+        <label>Number 1: </label>
+        <input type="number" id="num1" required/><br />
+
+        <label>Number 2: </label>
+        <input type="number" id="num2" required/><br />
+
+        <input type="submit" />
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        var form = document.getElementById('form');
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            var one = document.getElementById('num1').value;
+            var two = document.getElementById('num2').value;
+
+            fetch("/python?num1=" + one  + "&num2=" + two)
+            .then((req) => req.json())
+            .then((res) => {
+                document.getElementById("message").innerHTML = "The sum is " + res.sum;
+            }).catch((e) => alert(e));
+        })
+    </script>
+</body>
+</html>
