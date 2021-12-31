@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading TXT Files</title>
+</head>
+<body style="padding: 50px;">
+    <form id="form">
+        <input type="file" id="docpicker" accept=".txt" required/>
+        <input type="submit" />
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        document.getElementById("docpicker").addEventListener('change', function(event) { 
+            event.preventDefault();
+
+            var fr = new FileReader();
+            fr.onload = function() {
+                document.getElementById("output").textContent = fr.result;
+            }
+
+            fr.readAsText(this.files[0]);
+        });
+    </script>
+</body>
+</html>
